@@ -49,6 +49,12 @@ class BaseIdentityAdminTest(tempest.test.BaseTestCase):
         tenant = self.get_tenant_by_name(tenant_name)
         self.client.update_tenant(tenant['id'], enabled=False)
 
+    def get_user_by_id(self, user_id):
+        _, users = self.client.get_users()
+        user = [u for u in users if u['id'] == user_id]
+        if len(user) > 0:
+            return user[0]
+
     def get_user_by_name(self, name):
         _, users = self.client.get_users()
         user = [u for u in users if u['name'] == name]

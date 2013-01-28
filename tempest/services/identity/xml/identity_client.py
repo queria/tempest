@@ -172,6 +172,17 @@ class IdentityClientXML(RestClientXML):
         body = self._parse_body(etree.fromstring(body))
         return resp, body
 
+    def update_user(self, user_id, **kwargs):
+        """Update a user."""
+        kwargs['xmlns'] = XMLNS
+        update_user = Element("user", **kwargs)
+        resp, body = self.put('users/%s' % user_id,
+                               str(Document(update_user)),
+                               self.headers)
+        body = self._parse_body(etree.fromstring(body))
+        return resp, body
+
+
     def delete_user(self, user_id):
         """Delete a user."""
         resp, body = self.delete("users/%s" % user_id, self.headers)

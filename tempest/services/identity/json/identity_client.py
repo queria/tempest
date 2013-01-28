@@ -138,6 +138,13 @@ class IdentityClientJSON(RestClient):
         body = json.loads(body)
         return resp, body['user']
 
+    def update_user(self, user_id, **kwargs):
+        """Update a user."""
+        post_body = json.dumps({'user':kwargs})
+        resp, body = self.put('users/%s' % user_id, post_body, self.headers)
+        body = json.loads(body)
+        return resp, body['user']
+
     def delete_user(self, user_id):
         """Delete a user."""
         resp, body = self.delete("users/%s" % user_id)
